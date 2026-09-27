@@ -1,12 +1,13 @@
-version: "3"
-
 services:
   app:
     build: .
     container_name: portifolio
     restart: unless-stopped
     environment:
-      - VIRTUAL_HOST=portifolio.kuuhaku.dev
+      - VIRTUAL_HOST=portfolio.kuuhaku.dev
+      - VIRTUAL_PORT=5001
+    expose:
+      - 5001
     networks:
       - nginx-proxy
 

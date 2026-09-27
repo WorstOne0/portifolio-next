@@ -1,0 +1,102 @@
+/* The page's own scroll container gets a thin, faint scrollbar. */
+@utility scrollbar-space {
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: color-mix(in oklab, var(--ink) 2%, transparent);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--ink) 12%, transparent);
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--ink) 22%, transparent);
+  }
+}
+
+/* The faint 36px grid behind a project that has no screenshot. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--ink) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--ink) 4%, transparent) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+@utility glow-icon {
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--highlight) 80%, transparent));
+}
+
+@utility glow-astronaut {
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--highlight) 50%, transparent)) drop-shadow(0 2px 12px rgb(0 0 0 / 0.4));
+}
+
+@utility halo {
+  background: radial-gradient(circle, color-mix(in oklab, var(--highlight) 12%, transparent) 0%, transparent 70%);
+}
+
+/* Contact's orbit illustration: the glow behind it, the core, and the dot riding each ring. */
+@utility orb-glow {
+  background: radial-gradient(circle, color-mix(in oklab, var(--highlight) 10%, transparent) 0%, color-mix(in oklab, var(--accent-deep) 6%, transparent) 45%, transparent 68%);
+}
+
+@utility orb-core {
+  background: radial-gradient(
+    circle at 35% 35%,
+    color-mix(in oklab, var(--highlight) 50%, transparent),
+    color-mix(in oklab, var(--accent-deep) 35%, transparent) 60%,
+    color-mix(in oklab, var(--action) 20%, transparent)
+  );
+  box-shadow:
+    0 0 36px color-mix(in oklab, var(--highlight) 28%, transparent),
+    0 0 72px color-mix(in oklab, var(--accent-deep) 12%, transparent);
+}
+
+@utility orbit-dot-outer {
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    translate: -50% 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--ink) 55%, transparent);
+    box-shadow: 0 0 10px color-mix(in oklab, var(--ink) 40%, transparent);
+  }
+}
+
+@utility orbit-dot-middle {
+  &::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    translate: -50% 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: var(--accent);
+    box-shadow:
+      0 0 12px color-mix(in oklab, var(--accent) 80%, transparent),
+      0 0 24px color-mix(in oklab, var(--accent) 35%, transparent);
+  }
+}
+
+@utility orbit-dot-inner {
+  &::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    translate: -50% 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: var(--highlight);
+    box-shadow:
+      0 0 14px color-mix(in oklab, var(--highlight) 90%, transparent),
+      0 0 28px color-mix(in oklab, var(--highlight) 40%, transparent);
+  }
+}

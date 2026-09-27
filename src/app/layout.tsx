@@ -1,49 +1,24 @@
-"use client";
-
-import { useState, useEffect } from "react";
+// Next
+import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
-import { NavBar, Logo, FloatingAstronaut } from "@/components";
-import { LanguageProvider } from "@/context/language";
-import StarsBackground from "@/components/stars_background";
-import "@/styles/global.css";
+// Components
+import Providers from "./providers";
+// Styles
+import "@/styles/index.css";
 
-const nunito = Nunito({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const [isShowingLogo, setShowingLogo] = useState(true);
+export const metadata: Metadata = {
+  title: "Lucca Gabriel | Portfolio",
+  description: "Full-stack developer portfolio by Lucca Gabriel.",
+  icons: { icon: "/logo/logo.png" },
+};
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShowingLogo(false);
-    }, 2800);
-  }, []);
-
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <head>
-        <title>Lucca Gabriel | Portfolio</title>
-        <meta name="description" content="Full-stack developer portfolio by Lucca Gabriel." />
-        <link rel="icon" href="/simplified_logo.png" type="image/png" />
-      </head>
-      <body className={`w-full flex ${nunito.className} antialiased`}>
-        <LanguageProvider>
-          {isShowingLogo ? (
-            <Logo />
-          ) : (
-            <>
-              <StarsBackground />
-              <NavBar />
-              <div id="scroll-container" className="grow overflow-y-scroll relative z-10">
-                {children}
-              </div>
-              <FloatingAstronaut />
-            </>
-          )}
-        </LanguageProvider>
+    <html lang="pt-BR" className={nunito.variable}>
+      <body className="h-full w-full">
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

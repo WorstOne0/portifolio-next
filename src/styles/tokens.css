@@ -1,0 +1,33 @@
+/* Two layers: the palette holds values, the semantic layer holds roles. Markup reads roles only. */
+:root {
+  /* Palette: space. 950 the page, 900 the tinted sections. */
+  --space-950: #090b14;
+  --space-900: rgb(13 17 28 / 0.92);
+
+  /* Palette: blue. 600 the buttons, 400 highlights, hovers and glows. */
+  --blue-600: #0b5ecd;
+  --blue-400: #3b82f6;
+
+  /* Palette: violet. 800 the deep accent, 600 the section eyebrows, 400 the lavender end of the gradients. */
+  --violet-800: #5b21b6;
+  --violet-600: #7c3aed;
+  --violet-400: #a78bfa;
+
+  --slate-400: #8892a4;
+  --green-400: #4ade80;
+
+  /* Roles */
+  --background: var(--space-950);
+  --section: var(--space-900);
+  /* Text and hairlines on the dark page, nearly always with an alpha: text-ink/60, border-ink/10. */
+  --ink: #ffffff;
+  --meta: var(--slate-400);
+  --action: var(--blue-600);
+  --action-hover: var(--blue-400);
+  --highlight: var(--blue-400);
+  --accent: var(--violet-600);
+  --accent-deep: var(--violet-800);
+  --lavender: var(--violet-400);
+  --live: var(--green-400);
+  --glow: color-mix(in oklab, var(--blue-400) 50%, transparent);
+}
