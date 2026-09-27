@@ -56,4 +56,16 @@ export const PROJECTS: Project[] = [
       pt: "Xadrez contra o Stockfish, rodando no próprio navegador do jogador, ou contra um amigo em uma sala privada compartilhada por link, QR code ou um código de 6 letras. Motor de regras próprio, relógios controlados pelo servidor, pré-movimentos, setas e resultados animados nos reis.",
     },
   },
+  {
+    name: "Minesweeper",
+    site: "https://minesweeper.kuuhaku.dev",
+    image: "/projects/minesweeper.webp",
+    accent: "#f87171",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand"],
+    code: [{ label: "Front-end", href: "https://github.com/WorstOne0/minesweeper-front" }],
+    description: {
+      en: "Minesweeper in the browser with three board sizes, a first click that is always safe, flags and chords, and your best time on each board. The original board, with the chess app's look around it.",
+      pt: "Campo minado no navegador, com três tamanhos de tabuleiro, um primeiro clique sempre seguro, bandeiras, abertura rápida pelos números e o seu melhor tempo em cada tabuleiro. O tabuleiro original, com o visual do app de xadrez em volta.",
+    },
+  },
 ];

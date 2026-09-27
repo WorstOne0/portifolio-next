@@ -113,7 +113,7 @@ A project is one row in `src/core/models/projects.ts`: its name, site, accent co
 |---|---|
 | Google Fonts (Nunito) | Typography via `next/font/google` |
 | GitHub links | Project source code links (in `core/models/projects.ts`) |
-| External site links | Live project URLs (pedroluisimoveis.com.br, chess.kuuhaku.dev, wikidados.com.br) |
+| External site links | Live project URLs (pedroluisimoveis.com.br, wikidados.com.br, chess.kuuhaku.dev, minesweeper.kuuhaku.dev) |
 
 No backend or API routes — fully static frontend.
 
