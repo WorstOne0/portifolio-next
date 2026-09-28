@@ -43,7 +43,7 @@ const en = {
       {
         degree: "B.Eng. in Computer Engineering",
         institution: "UTFPR – Federal University of Technology of Paraná",
-        period: "2018 – 2023",
+        period: "2016 – 2023",
         location: "Cascavel, Paraná, Brazil",
       },
     ],
@@ -132,7 +132,7 @@ const pt: typeof en = {
       {
         degree: "Bacharelado em Engenharia de Computação",
         institution: "UTFPR – Universidade Tecnológica Federal do Paraná",
-        period: "2018 – 2023",
+        period: "2016 – 2023",
         location: "Cascavel, Paraná, Brasil",
       },
     ],
