@@ -43,6 +43,7 @@ The portfolio opens with a 2.8-second animated logo screen, then transitions to 
 src/
 ├── app/
 │   ├── layout.tsx              # Root layout — metadata, Nunito
+│   ├── opengraph-image.tsx     # The 1200×630 card link previews show (LinkedIn, WhatsApp)
 │   ├── providers.tsx           # Restores the saved language
 │   └── (home)/
 │       ├── page.tsx            # Logo splash, then the nav, stars, sections and astronaut

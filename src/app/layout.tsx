@@ -8,10 +8,21 @@ import "@/styles/index.css";
 
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" });
 
+const DESCRIPTION = "Projetos, experiência e contato de Lucca Gabriel, desenvolvedor full-stack.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://portfolio.kuuhaku.dev"),
   title: "Lucca Gabriel | Portfolio",
-  description: "Full-stack developer portfolio by Lucca Gabriel.",
+  description: DESCRIPTION,
   icons: { icon: "/logo/logo.png" },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Lucca Gabriel",
+    title: "Lucca Gabriel · Desenvolvedor Full-Stack",
+    description: DESCRIPTION,
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
