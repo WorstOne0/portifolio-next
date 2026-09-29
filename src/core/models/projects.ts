@@ -42,6 +42,18 @@ export const PROJECTS: Project[] = [
     },
   },
   {
+    name: "Algorithm Visualizer",
+    site: "https://algorithm-visualization.kuuhaku.dev",
+    image: "/projects/algorithm_visualization.webp",
+    accent: "#818cf8",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "Canvas 2D", "OpenStreetMap"],
+    code: [{ label: "Front-end", href: "https://github.com/WorstOne0/algorithm-visualization-front" }],
+    description: {
+      en: "Fifty-six college algorithms played step by step: sorting, searching, pathfinding, graphs, trees and game AI, each with a live canvas, the real code in seven languages with the current line lit, and counters. Signatures run them on real things: A* and Dijkstra on the streets of Cascavel, a MongoDB index, npm's install order, git's did-you-mean, tic-tac-toe against minimax.",
+      pt: "Cinquenta e seis algoritmos de faculdade executados passo a passo: ordenação, busca, pathfinding, grafos, árvores e IA de jogos, cada um com um canvas ao vivo, o código real em sete linguagens com a linha atual acesa e contadores. As assinaturas os rodam em coisas reais: A* e Dijkstra nas ruas de Cascavel, um índice do MongoDB, a ordem de instalação do npm, o did-you-mean do git, jogo da velha contra o minimax.",
+    },
+  },
+  {
     name: "Chess",
     site: "https://chess.kuuhaku.dev",
     image: "/projects/chess.webp",
