@@ -31,7 +31,7 @@ The portfolio opens with a 2.8-second animated logo screen, then transitions to 
 | State | Zustand 5 (the language) |
 | Animations | Framer Motion 12 |
 | Icons | React Icons 5 — Material outlined, plus brand logos |
-| Font | Nunito (Google Fonts via `next/font`) |
+| Fonts | Sora (headings), Manrope (text), JetBrains Mono (labels) — Google Fonts via `next/font` |
 | Runtime | React 19 |
 | Package Manager | pnpm |
 
@@ -42,13 +42,14 @@ The portfolio opens with a 2.8-second animated logo screen, then transitions to 
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # Root layout — metadata, Nunito
+│   ├── layout.tsx              # Root layout — metadata, fonts
 │   ├── opengraph-image.tsx     # The 1200×630 card link previews show (LinkedIn, WhatsApp)
 │   ├── providers.tsx           # Restores the saved language
 │   └── (home)/
 │       ├── page.tsx            # Logo splash, then the nav, stars, sections and astronaut
+│       ├── _utils/skills.ts    # The skill table, read by Skills and the hero's count
 │       └── _components/
-│           ├── hero.tsx        # Hero section
+│           ├── hero.tsx        # Name, stats and the orbit of the stack
 │           ├── about.tsx       # Bio, experience, education timeline
 │           ├── skills.tsx      # Categorized skill badges
 │           ├── projects.tsx    # Project cards with screenshots and links
@@ -60,7 +61,7 @@ src/
 │           └── stars_background.tsx
 ├── core/
 │   ├── controllers/            # language_controller (EN/PT, saved in localStorage)
-│   └── models/                 # translations (all UI strings), projects (the showcase)
+│   └── models/                 # translations (all UI strings), projects (the showcase), contact (email and profiles)
 └── styles/                     # index.css → tokens, theme, base, utilities
 public/
 ├── logo/                       # logo.png
@@ -104,7 +105,7 @@ Open [http://localhost:5001](http://localhost:5001) in your browser.
 
 ## 🗂 Adding a project
 
-A project is one row in `src/core/models/projects.ts`: its name, site, accent colour, stack, repositories and a description in both languages. For the screenshot, save the live site at 1440×900 as WebP in `public/projects/` and point `image` at it; without one, the card draws a panel in the project's accent colour instead.
+A project is one row in `src/core/models/projects.ts`: its name, site, accent colour, stack, repositories and a description in both languages. For the screenshot, save the live site at 1440×900 as WebP in `public/projects/` and point `image` at it; without one, the card draws a route map in the project's accent colour instead. The first project in the list is the featured one, drawn full width.
 
 ---
 
@@ -112,7 +113,7 @@ A project is one row in `src/core/models/projects.ts`: its name, site, accent co
 
 | Integration | Purpose |
 |---|---|
-| Google Fonts (Nunito) | Typography via `next/font/google` |
+| Google Fonts (Sora, Manrope, JetBrains Mono) | Typography via `next/font/google` |
 | GitHub links | Project source code links (in `core/models/projects.ts`) |
 | External site links | Live project URLs (pedroluisimoveis.com.br, wikidados.com.br, chess.disboard.dev, minesweeper.disboard.dev) |
 

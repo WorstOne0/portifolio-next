@@ -17,7 +17,7 @@ const SPLASH = 2800;
 
 export default function HomePage() {
   const [isShowingLogo, setIsShowingLogo] = useState(true);
-  // The page scrolls inside <main>, not the window: the nav, the hero's buttons and the astronaut all follow it
+  // The page scrolls inside <main>, not the window: the nav, the hero's buttons, the footer and the astronaut all follow it
   const scrollRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function HomePage() {
         <About />
         <Skills />
         <Projects />
-        <Contact />
+        <Contact scrollRef={scrollRef} />
       </main>
       <FloatingAstronaut scrollRef={scrollRef} />
     </div>

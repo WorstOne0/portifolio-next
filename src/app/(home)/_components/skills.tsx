@@ -8,78 +8,10 @@ import { useLanguageController } from "@/core/controllers";
 import { TRANSLATIONS } from "@/core/models";
 // Components
 import SectionHeader from "./section_header";
+// Utils
+import { SKILL_CATEGORIES, SKILL_COUNT } from "../_utils/skills";
 // Icons
-import { FaDocker, FaGitAlt, FaNodeJs, FaPython, FaReact, FaVuejs } from "react-icons/fa";
-import { MdOutlineApi, MdOutlineBuild, MdOutlineDashboard, MdOutlineDns, MdOutlinePhoneIphone } from "react-icons/md";
-import {
-  SiCplusplus,
-  SiExpress,
-  SiFirebase,
-  SiFlutter,
-  SiGooglemaps,
-  SiJavascript,
-  SiMongodb,
-  SiNextdotjs,
-  SiQuasar,
-  SiRabbitmq,
-  SiShadcnui,
-  SiSocketdotio,
-  SiTailwindcss,
-  SiTypescript,
-} from "react-icons/si";
-
-// Every logo in its brand colour; each category carries its own accent
-const CATEGORIES = [
-  {
-    key: "frontend",
-    color: "#3b82f6",
-    Icon: MdOutlineDashboard,
-    skills: [
-      { name: "React", Icon: FaReact, color: "#61DAFB" },
-      { name: "Next.js", Icon: SiNextdotjs, color: "#ffffff" },
-      { name: "Vue.js", Icon: FaVuejs, color: "#4FC08D" },
-      { name: "Quasar", Icon: SiQuasar, color: "#1976D2" },
-      { name: "JavaScript", Icon: SiJavascript, color: "#F7DF1E" },
-      { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
-      { name: "Tailwind", Icon: SiTailwindcss, color: "#38BDF8" },
-      { name: "ShadCN", Icon: SiShadcnui, color: "#ffffff" },
-    ],
-  },
-  {
-    key: "backend",
-    color: "#10b981",
-    Icon: MdOutlineDns,
-    skills: [
-      { name: "Node.js", Icon: FaNodeJs, color: "#68A063" },
-      { name: "Express", Icon: SiExpress, color: "#ffffff" },
-      { name: "Python", Icon: FaPython, color: "#FFD43B" },
-      { name: "C/C++", Icon: SiCplusplus, color: "#00599C" },
-      { name: "RabbitMQ", Icon: SiRabbitmq, color: "#FF6600" },
-      { name: "Socket.IO", Icon: SiSocketdotio, color: "#ffffff" },
-      { name: "REST API", Icon: MdOutlineApi, color: "#a78bfa" },
-    ],
-  },
-  {
-    key: "mobile",
-    color: "#f59e0b",
-    Icon: MdOutlinePhoneIphone,
-    skills: [
-      { name: "Flutter", Icon: SiFlutter, color: "#54C5F8" },
-      { name: "Firebase", Icon: SiFirebase, color: "#FFCA28" },
-    ],
-  },
-  {
-    key: "tools",
-    color: "#8b5cf6",
-    Icon: MdOutlineBuild,
-    skills: [
-      { name: "MongoDB", Icon: SiMongodb, color: "#47A248" },
-      { name: "Git", Icon: FaGitAlt, color: "#F05032" },
-      { name: "Docker", Icon: FaDocker, color: "#2496ED" },
-      { name: "Google Maps", Icon: SiGooglemaps, color: "#4285F4" },
-    ],
-  },
-] as const;
+import { SiAppstore, SiGoogleplay } from "react-icons/si";
 
 export default function Skills() {
   const lang = useLanguageController((state) => state.lang);
@@ -87,54 +19,59 @@ export default function Skills() {
   const t = TRANSLATIONS[lang];
 
   return (
-    <section id="skills" className="min-h-screen w-full px-[8rem] py-[8rem] flex items-start justify-center">
-      <div className="w-full max-w-[1200px] flex flex-col gap-[4rem]">
-        <SectionHeader title={t.skills.title} subtitle={t.skills.subtitle} />
+    <section id="skills" className="w-full px-[9.6rem] py-[12.8rem]">
+      <div className="mx-auto w-full max-w-[1180px] flex flex-col gap-[4.8rem]">
+        <SectionHeader index={3} label={t.nav.skills} title={t.skills.title} subtitle={t.skills.subtitle} count={SKILL_COUNT} />
 
-        <div className="grid grid-cols-2 gap-[2.4rem]">
-          {CATEGORIES.map((category, categoryIndex) => (
-            <motion.div
+        <div className="grid grid-cols-12 gap-[1.6rem]">
+          {SKILL_CATEGORIES.map((category, categoryIndex) => (
+            <motion.article
               key={category.key}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-              className="p-[2.8rem] flex flex-col rounded-[18px] border border-ink/[0.09] border-t-[3px] border-t-(--category) bg-ink/5 transition-[border-color,box-shadow] duration-200 hover:border-(--category) hover:shadow-lift"
-              style={{ "--category": category.color } as React.CSSProperties}
+              className={`${category.span} px-[2.8rem] pt-[2.6rem] pb-[2.8rem] rounded-[18px] border border-ink/8 bg-ink/3 transition-[border-color] duration-200 hover:border-ink/16`}
             >
-              <div className="mb-[1.6rem] flex items-center gap-[1.2rem]">
-                <span className="shrink-0 flex items-center text-[2.8rem]" style={{ color: category.color }}>
+              <header className="flex items-center gap-[1.4rem]">
+                <span className="size-[4.2rem] shrink-0 flex items-center justify-center rounded-[11px] text-[2.1rem]" style={{ color: category.color, background: `${category.color}1f` }}>
                   <category.Icon />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-[1.6rem] leading-[1.2] font-bold tracking-[0.04em] uppercase" style={{ color: category.color }}>
-                    {t.skills.categories[category.key]}
-                  </h3>
-                  <p className="mt-[0.25rem] text-[1.25rem] leading-[1.3] text-meta">{t.skills.categoryDesc[category.key]}</p>
+                  <h3 className="font-display text-[1.8rem] leading-[1.2] font-semibold text-ink">{t.skills.categories[category.key]}</h3>
+                  <p className="mt-[0.4rem] text-[1.3rem] text-ink/45">{t.skills.categoryDesc[category.key]}</p>
                 </div>
-                <span className="shrink-0 font-mono text-[2.6rem] leading-none font-extrabold text-ink/6">{category.skills.length}</span>
-              </div>
+                <span className="font-mono text-[1.3rem] tabular-nums text-ink/30">{String(category.skills.length).padStart(2, "0")}</span>
+              </header>
 
-              <div className="mb-[2rem] h-px w-full rounded-[1px]" style={{ background: `${category.color}28` }} />
+              <div className="my-[2.2rem] h-px bg-ink/7" />
 
-              <div className="flex flex-wrap gap-[0.9rem]">
+              <ul className="flex flex-wrap gap-[0.8rem]">
                 {category.skills.map((skill, index) => (
-                  <motion.div
+                  <motion.li
                     key={skill.name}
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: categoryIndex * 0.08 + index * 0.04 }}
-                    className="px-[1.3rem] py-[0.65rem] inline-flex items-center gap-[0.65rem] rounded-[8px] border border-ink/[0.09] bg-ink/[0.04] transition-[background,border-color,translate] duration-[180ms] hover:-translate-y-[2px] hover:border-ink/20 hover:bg-ink/[0.09]"
+                    className="h-[4rem] pr-[1.4rem] pl-[1.2rem] inline-flex items-center gap-[0.9rem] rounded-[10px] border border-ink/8 bg-ink/4 text-[1.4rem] font-medium text-ink/86 transition-[background,border-color,translate] duration-[180ms] hover:-translate-y-[2px] hover:border-ink/20 hover:bg-ink/7"
                   >
-                    <span className="flex items-center text-[1.7rem]" style={{ color: skill.color }}>
+                    <span className="flex text-[1.8rem]" style={{ color: skill.color }}>
                       <skill.Icon />
                     </span>
-                    <span className="text-[1.35rem] whitespace-nowrap text-ink/80">{skill.name}</span>
-                  </motion.div>
+                    {skill.name}
+                  </motion.li>
                 ))}
-              </div>
-            </motion.div>
+              </ul>
+
+              {category.key === "mobile" && (
+                <p className="mt-[2.2rem] pt-[1.8rem] flex items-center gap-[1rem] border-t border-dashed border-ink/10 text-[1.3rem] text-ink/55">
+                  <SiAppstore className="text-[1.6rem] text-ink/70" />
+                  <SiGoogleplay className="text-[1.5rem] text-ink/70" />
+                  {t.skills.mobileNote}
+                </p>
+              )}
+            </motion.article>
           ))}
         </div>
       </div>

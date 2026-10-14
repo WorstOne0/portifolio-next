@@ -15,7 +15,7 @@ is only what is specific to this app.
 ## Rules that matter here
 
 - The page scrolls inside `<main>`, not the window: the nav's progress and active section, the hero's
-  buttons and the astronaut all read the `scrollRef` the page passes them.
+  buttons, the footer's back-to-top and the astronaut all read the `scrollRef` the page passes them.
 - Every string is in `core/models/translations.ts`, `en` first and `pt: typeof en`, so a key missing
   in one language fails the type check. A project's text lives with it in `core/models/projects.ts`.
 - `ink` is the white everything is drawn in, nearly always with an alpha (`text-ink/60`). The brand

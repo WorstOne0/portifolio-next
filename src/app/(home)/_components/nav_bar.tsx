@@ -6,8 +6,9 @@ import Image from "next/image";
 // Controllers
 import { useLanguageController } from "@/core/controllers";
 // Models
-import { TRANSLATIONS } from "@/core/models";
+import { CONTACT, TRANSLATIONS, type Lang } from "@/core/models";
 // Icons
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdOutlineHome, MdOutlinePersonOutline, MdOutlinePsychology, MdOutlineSend, MdOutlineWorkOutline } from "react-icons/md";
 
 const SECTIONS = [
@@ -17,7 +18,11 @@ const SECTIONS = [
   { id: "projects", Icon: MdOutlineWorkOutline },
   { id: "contact", Icon: MdOutlineSend },
 ] as const;
-const DECORATIONS = ["{...}", "</>", ">>>", "~/"];
+const SOCIALS = [
+  { label: "GitHub", href: CONTACT.github, Icon: FaGithub },
+  { label: "LinkedIn", href: CONTACT.linkedin, Icon: FaLinkedin },
+];
+const LANGS: Lang[] = ["pt", "en"];
 
 type Section = (typeof SECTIONS)[number]["id"];
 
@@ -50,46 +55,66 @@ export default function NavBar({ scrollRef }: { scrollRef: React.RefObject<HTMLE
   const scrollTo = (id: Section) => scrollRef.current?.scrollTo({ top: document.getElementById(id)?.offsetTop, behavior: "smooth" });
 
   return (
-    <div className="relative z-20 h-screen w-[9.5rem] shrink-0 py-[2rem] flex flex-col items-center border-r border-ink/[0.055] bg-background/88 backdrop-blur-[14px]">
-      <div className="relative mb-[2rem] h-[6.5rem] w-[6.5rem] shrink-0">
-        <Image src="/logo/logo.png" alt="Logo" fill sizes="65px" priority />
-      </div>
+    <div className="relative z-20 h-screen w-[8.8rem] shrink-0 pt-[2.2rem] pb-[1.8rem] flex flex-col items-center border-r border-ink/6 bg-background/80 backdrop-blur-[14px]">
+      <div
+        className="absolute top-0 -right-px w-[2px] rounded-b-[2px] bg-linear-to-b from-highlight to-accent shadow-glow transition-[height] duration-[120ms] ease-linear"
+        style={{ height: `${progress * 100}%` }}
+      />
 
-      <div className="min-h-0 w-full flex-1 pl-[0.8rem] pr-[0.6rem] flex items-stretch">
-        <div className="relative mr-[0.4rem] w-[3px] shrink-0 self-stretch overflow-hidden rounded-[3px] bg-ink/8">
-          <div
-            className="absolute top-0 left-0 w-full rounded-[3px] bg-linear-to-b from-highlight to-accent-deep shadow-glow transition-[height] duration-[120ms] ease-linear"
-            style={{ height: `${progress * 100}%` }}
-          />
-        </div>
-
-        <nav className="min-h-0 flex-1 flex flex-col justify-center">
-          {SECTIONS.map(({ id, Icon }, index) => (
-            <div key={id} className="flex flex-col items-center">
-              <button
-                type="button"
-                title={t.nav[id]}
-                onClick={() => scrollTo(id)}
-                className={`w-full px-[0.4rem] py-[0.75rem] flex flex-col items-center justify-center gap-[0.3rem] rounded-[8px] transition-[background,color] duration-[180ms] hover:bg-ink/[0.055] ${id === activeSection ? "text-ink" : "text-ink/32 hover:text-ink/78"}`}
-              >
-                <Icon className={`text-[2rem] transition-[filter] duration-[180ms] ${id === activeSection ? "glow-icon" : ""}`} />
-                <span className="text-[0.9rem] leading-none font-medium tracking-[0.02em]">{t.nav[id]}</span>
-              </button>
-              {index < SECTIONS.length - 1 && <span className="py-[0.35rem] font-mono text-[0.78rem] leading-none tracking-[0.02em] text-ink/13 select-none">{DECORATIONS[index]}</span>}
-            </div>
-          ))}
-        </nav>
-      </div>
-
-      <button
-        type="button"
-        title={t.language.switchTo}
-        onClick={() => setLang(lang === "pt" ? "en" : "pt")}
-        className="mt-[1.2rem] w-[calc(100%_-_1.2rem)] shrink-0 px-[0.6rem] py-[0.9rem] flex flex-col items-center gap-[0.3rem] rounded-[8px] text-ink/45 transition-[background,color] duration-[180ms] hover:bg-ink/[0.055] hover:text-ink/85"
-      >
-        <span className="text-[1.9rem] leading-none">{t.language.flag}</span>
-        <span className="text-[0.82rem] font-bold tracking-[0.08em]">{t.language.label}</span>
+      <button type="button" aria-label={t.nav.home} onClick={() => scrollTo("home")} className="relative mb-[2.4rem] h-[5rem] w-[5rem] shrink-0">
+        <Image src="/logo/logo.png" alt="Logo" fill sizes="50px" />
       </button>
+
+      <nav className="min-h-0 w-full flex-1 px-[1rem] flex flex-col justify-center gap-[0.6rem]">
+        {SECTIONS.map(({ id, Icon }) => {
+          const isActive = id === activeSection;
+
+          return (
+            <button
+              key={id}
+              type="button"
+              aria-current={isActive ? "true" : undefined}
+              onClick={() => scrollTo(id)}
+              className={`relative h-[6.2rem] flex flex-col items-center justify-center gap-[0.6rem] rounded-[10px] transition-[background,color] duration-[180ms] hover:bg-ink/6 ${isActive ? "bg-ink/6 text-ink" : "text-ink/45 hover:text-ink/88"}`}
+            >
+              {isActive && <span className="absolute top-1/2 -left-[1rem] h-[2.4rem] w-[3px] -translate-y-1/2 rounded-r-[3px] bg-highlight shadow-glow" />}
+              <Icon className={`text-[2.2rem] ${isActive ? "glow-icon" : ""}`} />
+              <span className="text-[1.1rem] leading-none font-semibold">{t.nav[id]}</span>
+            </button>
+          );
+        })}
+      </nav>
+
+      <div className="flex flex-col items-center gap-[0.4rem]">
+        {SOCIALS.map(({ label, href, Icon }) => (
+          <a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            className="h-[4.4rem] w-[4.4rem] flex items-center justify-center rounded-[10px] text-[1.9rem] text-ink/45 transition-[background,color] duration-[180ms] hover:bg-ink/6 hover:text-ink/88"
+          >
+            <Icon />
+          </a>
+        ))}
+
+        <span className="my-[1rem] h-px w-[3.2rem] bg-ink/8" />
+
+        <div role="group" aria-label={t.language.label} className="p-[3px] flex flex-col gap-[2px] rounded-[10px] border border-ink/8">
+          {LANGS.map((option) => (
+            <button
+              key={option}
+              type="button"
+              aria-pressed={option === lang}
+              onClick={() => setLang(option)}
+              className={`h-[3.2rem] w-[5.2rem] rounded-[7px] font-mono text-[1.1rem] font-semibold tracking-[0.08em] uppercase transition-[background,color] duration-[180ms] ${option === lang ? "bg-ink/10 text-ink" : "text-ink/40 hover:text-ink/80"}`}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

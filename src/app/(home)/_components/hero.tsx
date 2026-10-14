@@ -1,117 +1,186 @@
 "use client";
 
 // Next
+import Image from "next/image";
 import { motion } from "framer-motion";
 // Controllers
 import { useLanguageController } from "@/core/controllers";
 // Models
-import { TRANSLATIONS } from "@/core/models";
+import { PROJECTS, TRANSLATIONS } from "@/core/models";
+// Utils
+import { SKILL_COUNT } from "../_utils/skills";
 // Icons
 import { FaDocker, FaGitAlt, FaNodeJs, FaPython, FaReact, FaVuejs } from "react-icons/fa";
-import { MdOutlineRocketLaunch } from "react-icons/md";
+import { MdOutlineKeyboardArrowDown, MdOutlineRocketLaunch } from "react-icons/md";
 import { SiFirebase, SiFlutter, SiMongodb, SiNextdotjs, SiTailwindcss, SiTypescript } from "react-icons/si";
 
-// Each logo in its brand colour, scattered over the 46rem field
-const TECH_ICONS = [
-  { Icon: FaReact, name: "React", color: "#61DAFB", top: "5%", left: "14%" },
-  { Icon: SiNextdotjs, name: "Next.js", color: "#ffffff", top: "4%", left: "58%" },
-  { Icon: FaDocker, name: "Docker", color: "#2496ED", top: "7%", left: "86%" },
-  { Icon: SiMongodb, name: "MongoDB", color: "#47A248", top: "28%", left: "3%" },
-  { Icon: SiTypescript, name: "TypeScript", color: "#3178C6", top: "30%", left: "36%" },
-  { Icon: SiFlutter, name: "Flutter", color: "#54C5F8", top: "26%", left: "80%" },
-  { Icon: FaVuejs, name: "Vue.js", color: "#4FC08D", top: "57%", left: "14%" },
-  { Icon: FaNodeJs, name: "Node.js", color: "#68A063", top: "55%", left: "58%" },
-  { Icon: SiTailwindcss, name: "Tailwind", color: "#38BDF8", top: "55%", left: "92%" },
-  { Icon: SiFirebase, name: "Firebase", color: "#FFCA28", top: "82%", left: "4%" },
-  { Icon: FaPython, name: "Python", color: "#FFD43B", top: "84%", left: "42%" },
-  { Icon: FaGitAlt, name: "Git", color: "#F05032", top: "82%", left: "78%" },
+// From the centre out: mobile, front-end, back-end and tools; size is the ring's share of the orbit, in %. Each logo
+// sits at an angle in degrees and counter-spins at its ring's speed, so it stays upright while the ring turns.
+const ORBITS = [
+  {
+    size: 39,
+    ring: "border-highlight/30 animate-orbit-40",
+    counter: "animate-orbit-40-reverse",
+    logos: [
+      { Icon: SiFlutter, name: "Flutter", color: "#54C5F8", angle: -30 },
+      { Icon: SiFirebase, name: "Firebase", color: "#FFCA28", angle: 150 },
+    ],
+  },
+  {
+    size: 64,
+    ring: "border-dashed border-lavender/25 animate-orbit-70-reverse",
+    counter: "animate-orbit-70",
+    logos: [
+      { Icon: FaReact, name: "React", color: "#61DAFB", angle: -75 },
+      { Icon: SiTypescript, name: "TypeScript", color: "#3178C6", angle: -3 },
+      { Icon: SiTailwindcss, name: "Tailwind", color: "#38BDF8", angle: 69 },
+      { Icon: FaVuejs, name: "Vue.js", color: "#4FC08D", angle: 141 },
+      { Icon: SiNextdotjs, name: "Next.js", color: "#ffffff", angle: 213 },
+    ],
+  },
+  {
+    size: 89,
+    ring: "border-ink/7 animate-orbit-100",
+    counter: "animate-orbit-100-reverse",
+    logos: [
+      { Icon: FaNodeJs, name: "Node.js", color: "#68A063", angle: -160 },
+      { Icon: SiMongodb, name: "MongoDB", color: "#47A248", angle: -88 },
+      { Icon: FaDocker, name: "Docker", color: "#2496ED", angle: -16 },
+      { Icon: FaPython, name: "Python", color: "#FFD43B", angle: 56 },
+      { Icon: FaGitAlt, name: "Git", color: "#F05032", angle: 128 },
+    ],
+  },
 ];
 
 export default function Hero({ scrollRef }: { scrollRef: React.RefObject<HTMLElement | null> }) {
   const lang = useLanguageController((state) => state.lang);
 
   const t = TRANSLATIONS[lang];
+  const stats = [
+    { value: "3+", label: t.hero.stats.years },
+    { value: String(PROJECTS.length).padStart(2, "0"), label: t.hero.stats.projects },
+    { value: String(SKILL_COUNT), label: t.hero.stats.skills },
+  ];
 
-  const scrollToAbout = () => scrollRef.current?.scrollTo({ top: document.getElementById("about")?.offsetTop, behavior: "smooth" });
+  const scrollTo = (id: string) => scrollRef.current?.scrollTo({ top: document.getElementById(id)?.offsetTop, behavior: "smooth" });
 
   return (
-    <section id="home" className="relative min-h-screen w-full px-[6rem] py-[6rem] flex flex-col items-center justify-center">
-      <div className="w-full max-w-[1200px] flex items-center justify-center gap-[4rem]">
-        <div className="min-w-0 flex-1 flex flex-col items-start gap-[1.2rem]">
-          <motion.div
+    <section id="home" className="relative min-h-screen w-full px-[9.6rem] flex items-center">
+      <div className="mx-auto w-full max-w-[1180px] grid grid-cols-[minmax(0,1fr)_auto] items-center gap-[4rem]">
+        <div className="min-w-0 flex flex-col items-start">
+          <motion.span
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-[0.4rem] px-[1.4rem] py-[0.5rem] inline-flex items-center gap-[0.7rem] rounded-full border border-accent-deep/50 bg-accent-deep/10 text-[1.25rem] tracking-[0.04em] text-lavender"
+            className="h-[3.2rem] pr-[1.4rem] pl-[1.1rem] inline-flex items-center gap-[0.9rem] rounded-full border border-lavender/28 bg-accent-deep/12 font-mono text-[1.2rem] leading-none tracking-[0.08em] text-lavender uppercase"
           >
-            <span>🚀</span>
-            <span>{t.hero.badge}</span>
-          </motion.div>
+            <MdOutlineRocketLaunch className="text-[1.5rem]" />
+            {t.hero.badge}
+          </motion.span>
 
           <motion.h1
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.12 }}
-            className="bg-linear-to-r from-highlight to-lavender bg-clip-text text-[clamp(4.2rem,7vw,8.4rem)] leading-none font-extrabold text-transparent"
+            className="mt-[2.8rem] font-display text-[clamp(7.2rem,8.6vw,12.4rem)] leading-[0.9] font-bold tracking-[-0.05em] text-ink"
           >
-            {t.hero.name}
+            {t.hero.name.split(" ").map((word) => (
+              <span key={word} className="block">
+                {word}
+              </span>
+            ))}
           </motion.h1>
 
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.22 }} className="flex flex-wrap items-baseline gap-[0.8rem]">
-            <h2 className="text-[clamp(2rem,2.8vw,3.2rem)] leading-[1.1] font-bold whitespace-nowrap text-ink/88">{t.hero.title}</h2>
-            <span className="text-[clamp(1.8rem,2.4vw,2.8rem)] font-light text-ink/25">/</span>
-            <span className="text-[clamp(1.6rem,2.2vw,2.6rem)] font-medium whitespace-nowrap text-accent">{t.hero.role}</span>
-          </motion.div>
+          <motion.p
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.22 }}
+            className="mt-[3rem] font-display text-[2.2rem] leading-[1.4] font-medium tracking-[-0.01em] text-ink/88"
+          >
+            {t.hero.title}
+            <span className="block text-lavender">{t.hero.role}</span>
+          </motion.p>
 
-          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.36 }} className="text-[1.6rem] leading-[1.6] tracking-[0.01em] text-meta">
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.36 }} className="mt-[1.8rem] max-w-[52rem] text-[1.7rem] leading-[1.7] text-ink/60">
             {t.hero.subtitle}
           </motion.p>
 
-          <motion.button
-            type="button"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.52 }}
-            onClick={scrollToAbout}
-            className="mt-[1.4rem] px-[3rem] py-[1.2rem] inline-flex items-center gap-[0.8rem] rounded-[8px] bg-action text-[1.6rem] font-semibold text-ink transition-[background,translate] duration-200 hover:-translate-y-[2px] hover:bg-action-hover"
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.5 }} className="mt-[3.6rem] flex flex-wrap gap-[1.2rem]">
+            <button
+              type="button"
+              onClick={() => scrollTo("projects")}
+              className="h-[5.2rem] pr-[2.2rem] pl-[1.9rem] inline-flex items-center gap-[1rem] rounded-[10px] bg-action text-[1.5rem] font-bold text-ink shadow-button transition-[background,translate] duration-200 hover:-translate-y-[2px] hover:bg-action-hover"
+            >
+              <MdOutlineRocketLaunch className="text-[1.8rem]" />
+              {t.hero.cta}
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollTo("contact")}
+              className="h-[5.2rem] px-[2.2rem] inline-flex items-center rounded-[10px] border border-ink/14 bg-ink/3 text-[1.5rem] font-semibold text-ink/88 transition-[background,border-color] duration-200 hover:border-ink/24 hover:bg-ink/8"
+            >
+              {t.hero.contact}
+            </button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="mt-[5.6rem] pt-[2.4rem] w-full max-w-[52rem] grid grid-cols-3 gap-[2.4rem] border-t border-ink/8"
           >
-            <MdOutlineRocketLaunch className="text-[1.6rem]" />
-            {t.hero.cta}
-          </motion.button>
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <span className="block font-display text-[3rem] leading-none font-semibold tracking-[-0.02em] tabular-nums text-ink">{stat.value}</span>
+                <span className="mt-[0.8rem] block text-[1.3rem] text-ink/50">{stat.label}</span>
+              </div>
+            ))}
+          </motion.div>
         </div>
 
-        <motion.div className="relative h-[46rem] w-[46rem] shrink-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }}>
-          {TECH_ICONS.map(({ Icon, name, color, top, left }, index) => (
-            <motion.div
-              key={name}
-              style={{ top, left }}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.3 + index * 0.07 }}
-              className="absolute min-w-[7rem] -translate-x-1/2 -translate-y-1/2 px-[0.9rem] py-[1.1rem] flex flex-col items-center justify-center gap-[0.5rem] rounded-[12px] border border-ink/[0.09] bg-ink/5 backdrop-blur-[4px] transition-[background,border-color,translate] duration-200 hover:-translate-y-[calc(50%_+_5px)] hover:border-ink/18 hover:bg-ink/8"
-            >
-              <span className="flex items-center justify-center text-[2.8rem]" style={{ color }}>
-                <Icon />
-              </span>
-              <span className="text-[1.05rem] whitespace-nowrap text-ink/60">{name}</span>
-            </motion.div>
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="relative aspect-square w-[clamp(40rem,38vw,56rem)]"
+        >
+          <div className="orb-glow absolute inset-[9%] rounded-full animate-orb-pulse" />
+
+          {ORBITS.map((orbit) => (
+            <div key={orbit.size} className={`absolute rounded-full border motion-reduce:animate-none ${orbit.ring}`} style={{ inset: `${(100 - orbit.size) / 2}%` }}>
+              {orbit.logos.map(({ Icon, name, color, angle }) => (
+                <span
+                  key={name}
+                  className="absolute size-[4.8rem] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full border border-ink/10 bg-section shadow-[0_0_0_0.5rem_var(--background)]"
+                  style={{ left: `${50 + 50 * Math.cos((angle * Math.PI) / 180)}%`, top: `${50 + 50 * Math.sin((angle * Math.PI) / 180)}%` }}
+                >
+                  <span className={`flex text-[2.2rem] motion-reduce:animate-none ${orbit.counter}`} style={{ color }}>
+                    <Icon />
+                  </span>
+                </span>
+              ))}
+            </div>
           ))}
+
+          <div className="orb-core absolute inset-[38%] flex items-center justify-center rounded-full">
+            <div className="relative size-[68%]">
+              <Image src="/logo/logo.png" alt="" fill sizes="92px" />
+            </div>
+          </div>
         </motion.div>
       </div>
 
       <motion.button
         type="button"
-        aria-label="scroll down"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.4 }}
-        onClick={scrollToAbout}
-        className="absolute bottom-[2.4rem] left-1/2 -translate-x-1/2 p-[0.4rem] flex flex-col items-center gap-[0.4rem] text-ink/40 transition-colors duration-200 hover:text-ink/75"
+        onClick={() => scrollTo("about")}
+        className="absolute bottom-[2.8rem] left-1/2 -translate-x-1/2 p-[0.4rem] flex flex-col items-center gap-[0.4rem] font-mono text-[1rem] tracking-[0.18em] text-ink/40 uppercase transition-colors duration-200 hover:text-ink/75"
       >
-        <div className="animate-rocket-bounce">
-          <MdOutlineRocketLaunch className="mb-[10px] block rotate-135 text-[1.8rem]" />
-        </div>
-        <span className="mt-[10px] text-[1rem] font-semibold tracking-[0.12em] uppercase">Scroll Down</span>
+        {t.hero.scroll}
+        <MdOutlineKeyboardArrowDown className="animate-scroll-bounce text-[1.8rem]" />
       </motion.button>
     </section>
   );

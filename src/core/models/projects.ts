@@ -4,7 +4,7 @@ import type { Lang } from "./translations";
 export type Project = {
   name: string;
   site: string;
-  // A screenshot of the live site in public/projects/, 1440×900; null draws the accent panel instead
+  // A screenshot of the live site in public/projects/, 1440×900; null draws a route map in the accent instead
   image: string | null;
   accent: string;
   tech: string[];

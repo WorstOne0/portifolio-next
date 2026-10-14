@@ -1,81 +1,110 @@
 "use client";
 
 // Next
+import { useState } from "react";
 import { motion } from "framer-motion";
 // Controllers
 import { useLanguageController } from "@/core/controllers";
 // Models
-import { TRANSLATIONS } from "@/core/models";
+import { CONTACT, TRANSLATIONS } from "@/core/models";
 // Icons
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { MdOutlineArrowForward, MdOutlineEmail } from "react-icons/md";
+import { MdOutlineArrowForward, MdOutlineArrowUpward, MdOutlineContentCopy, MdOutlineEmail } from "react-icons/md";
 
 const YEAR = new Date().getFullYear();
 
-export default function Contact() {
+export default function Contact({ scrollRef }: { scrollRef: React.RefObject<HTMLElement | null> }) {
   const lang = useLanguageController((state) => state.lang);
 
-  const t = TRANSLATIONS[lang];
+  const [isCopied, setIsCopied] = useState(false);
 
+  const t = TRANSLATIONS[lang];
+  const words = t.contact.subtitle.split(" ");
   const links = [
-    { label: t.contact.sendEmail, detail: "luccagabriel12@hotmail.com", Icon: MdOutlineEmail, href: "mailto:luccagabriel12@hotmail.com", color: "#3b82f6" },
-    { label: t.contact.seeGithub, detail: "github.com/WorstOne0", Icon: FaGithub, href: "https://github.com/WorstOne0", color: "#a78bfa" },
-    { label: t.contact.linkedin, detail: "lucca-gabriel-410040154", Icon: FaLinkedin, href: "https://www.linkedin.com/in/lucca-gabriel-410040154/", color: "#0ea5e9" },
+    { label: t.contact.email, detail: CONTACT.email, Icon: MdOutlineEmail, href: `mailto:${CONTACT.email}`, color: "#3b82f6" },
+    { label: t.contact.seeGithub, detail: CONTACT.github.replace("https://", ""), Icon: FaGithub, href: CONTACT.github, color: "#a78bfa" },
+    { label: t.contact.linkedin, detail: "lucca-gabriel-410040154", Icon: FaLinkedin, href: CONTACT.linkedin, color: "#0ea5e9" },
   ];
 
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(CONTACT.email);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
+  };
+
   return (
-    <section id="contact" className="min-h-screen w-full px-[6rem] py-[8rem] flex items-center justify-center">
-      <div className="w-full max-w-[1100px] flex items-center gap-[5rem]">
-        <div className="min-w-0 flex-1 flex flex-col items-start gap-[2.8rem]">
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="flex flex-col items-start gap-[1rem]">
-            <span className="font-mono text-[1.3rem] tracking-[0.06em] text-accent">{`// ${t.contact.title.toLowerCase()}`}</span>
-            <h2 className="text-[clamp(3rem,5vw,5.2rem)] leading-[1.05] font-extrabold text-ink">{t.contact.title}</h2>
-            <p className="bg-linear-to-r from-highlight to-lavender bg-clip-text text-[1.9rem] font-semibold text-transparent">{t.contact.subtitle}</p>
-            <p className="max-w-[460px] text-[1.5rem] leading-[1.7] text-meta">{t.contact.description}</p>
+    <section id="contact" className="min-h-screen w-full px-[9.6rem] pt-[12rem] pb-[5.6rem] flex flex-col">
+      <div className="mx-auto w-full max-w-[1180px] flex-1 flex flex-col">
+        <div className="my-auto grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center gap-[7.2rem]">
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <span className="flex items-center gap-[1.2rem] font-mono text-[1.2rem] leading-none tracking-[0.14em] text-lavender uppercase">
+              <span className="text-ink/35">05</span>
+              <span className="h-px w-[2.8rem] bg-lavender/50" />
+              {t.nav.contact}
+            </span>
+            <h2 className="mt-[1.8rem] font-display text-[6rem] leading-[1.04] font-semibold tracking-[-0.04em] text-ink">
+              {words.slice(0, -1).join(" ")} <span className="text-lavender">{words.at(-1)}</span>.
+            </h2>
+            <p className="mt-[2.2rem] max-w-[46rem] text-[1.7rem] leading-[1.7] text-ink/60">{t.contact.description}</p>
+
+            <div className="mt-[3.6rem] flex flex-wrap gap-[1.2rem]">
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="h-[5.2rem] pr-[2.2rem] pl-[1.9rem] inline-flex items-center gap-[1rem] rounded-[10px] bg-action text-[1.5rem] font-bold text-ink shadow-button transition-[background,translate] duration-200 hover:-translate-y-[2px] hover:bg-action-hover"
+              >
+                <MdOutlineEmail className="text-[1.8rem]" />
+                {t.contact.sendEmail}
+              </a>
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="h-[5.2rem] px-[2rem] inline-flex items-center gap-[1rem] rounded-[10px] border border-ink/14 bg-ink/3 text-[1.5rem] font-semibold text-ink/88 transition-[background,border-color] duration-200 hover:border-ink/24 hover:bg-ink/8"
+              >
+                <MdOutlineContentCopy className="text-[1.7rem]" />
+                {isCopied ? t.contact.copied : t.contact.copyEmail}
+              </button>
+            </div>
           </motion.div>
 
-          <div className="w-full flex flex-col gap-[1.2rem]">
+          <div className="flex flex-col gap-[1.2rem]">
             {links.map(({ label, detail, Icon, href, color }, index) => (
               <motion.a
-                key={label}
+                key={href}
                 href={href}
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, x: -24 }}
+                initial={{ opacity: 0, x: 24 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 + index * 0.1 }}
-                className="group px-[2rem] py-[1.6rem] flex items-center gap-[1.6rem] rounded-[14px] border border-ink/[0.09] bg-ink/5 transition-[background,border-color,translate] duration-200 hover:translate-x-[5px] hover:border-(--row) hover:bg-ink/[0.07]"
+                className="group px-[2rem] py-[1.8rem] flex items-center gap-[1.6rem] rounded-[16px] border border-ink/8 bg-ink/3 transition-[background,border-color,translate] duration-200 hover:translate-x-[4px] hover:border-(--row) hover:bg-ink/5"
                 style={{ "--row": color } as React.CSSProperties}
               >
-                <span className="h-[4.2rem] w-[4.2rem] shrink-0 flex items-center justify-center rounded-[10px] bg-ink/5 text-[2.2rem]" style={{ color }}>
+                <span className="size-[4.6rem] shrink-0 flex items-center justify-center rounded-[12px] text-[2.2rem]" style={{ color, background: `${color}1f` }}>
                   <Icon />
                 </span>
-                <div className="min-w-0 flex-1 flex flex-col gap-[0.2rem]">
-                  <span className="text-[1.5rem] font-semibold text-ink/90">{label}</span>
-                  <span className="truncate text-[1.25rem] text-meta">{detail}</span>
-                </div>
-                <MdOutlineArrowForward className="shrink-0 text-[1.6rem] text-ink/28 transition-[color,translate] duration-200 group-hover:translate-x-[3px] group-hover:text-(--row)" />
+                <span className="min-w-0 flex-1 flex flex-col gap-[0.3rem]">
+                  <span className="text-[1.6rem] font-semibold text-ink/92">{label}</span>
+                  <span className="truncate text-[1.35rem] text-ink/50">{detail}</span>
+                </span>
+                <MdOutlineArrowForward className="shrink-0 text-[1.8rem] text-ink/30 transition-colors duration-200 group-hover:text-(--row)" />
               </motion.a>
             ))}
           </div>
-
-          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.5 }} className="text-[1.2rem] tracking-[0.04em] text-ink/20">
-            Lucca Gabriel · {YEAR}
-          </motion.p>
         </div>
 
-        <motion.div className="shrink-0 flex items-center justify-center" initial={{ opacity: 0, scale: 0.85 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }}>
-          <div className="relative h-[42rem] w-[42rem] flex items-center justify-center">
-            <div className="orb-glow absolute h-[50rem] w-[50rem] rounded-full animate-orb-pulse" />
-            <div className="orbit-dot-outer absolute h-[40rem] w-[40rem] rounded-full border border-ink/[0.07] animate-orbit-22" />
-            <div className="orbit-dot-middle absolute h-[30rem] w-[30rem] rounded-full border border-accent-deep/22 animate-orbit-13-reverse" />
-            <div className="orbit-dot-inner absolute h-[20rem] w-[20rem] rounded-full border border-highlight/30 animate-orbit-7" />
-            <div className="orb-core absolute z-[5] h-[11rem] w-[11rem] flex items-center justify-center rounded-full">
-              <MdOutlineEmail className="text-[4.2rem] text-ink/88" />
-            </div>
-          </div>
-        </motion.div>
+        <footer className="mt-[12.8rem] pt-[2.4rem] flex flex-wrap items-center justify-between gap-[1.6rem] border-t border-ink/7 font-mono text-[1.2rem] tracking-[0.04em] text-ink/35">
+          <span>© {YEAR} Lucca Gabriel · Cascavel, PR</span>
+          <span>Next.js · Tailwind · Framer Motion</span>
+          <button
+            type="button"
+            onClick={() => scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" })}
+            className="inline-flex items-center gap-[0.6rem] text-ink/55 transition-colors duration-200 hover:text-ink/85"
+          >
+            {t.contact.backToTop}
+            <MdOutlineArrowUpward className="text-[1.4rem]" />
+          </button>
+        </footer>
       </div>
     </section>
   );
