@@ -3,10 +3,18 @@
 // Next
 import Image from "next/image";
 import { motion } from "framer-motion";
+// Controllers
+import { useLanguageController } from "@/core/controllers";
+// Models
+import { TRANSLATIONS } from "@/core/models";
 
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
 export default function LogoSplash() {
+  const lang = useLanguageController((state) => state.lang);
+
+  const t = TRANSLATIONS[lang];
+
   return (
     <motion.div exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className="fixed inset-0 z-30 flex flex-col items-center justify-center">
       {/* Shares layoutId "logo" with the hero's orbit: when the splash leaves, the logo flies into it */}
@@ -23,6 +31,15 @@ export default function LogoSplash() {
         className="mt-[3.2rem] font-display text-[2.4rem] font-semibold tracking-[-0.02em] text-ink/92"
       >
         Lucca Gabriel
+      </motion.span>
+
+      <motion.span
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.45, ease: EASE_OUT }}
+        className="mt-[0.8rem] pl-[0.35em] font-mono text-[1.2rem] tracking-[0.35em] text-lavender/80 uppercase"
+      >
+        {t.splash.label}
       </motion.span>
 
       <span className="mt-[1.8rem] h-[2px] w-[14rem] overflow-hidden rounded-full bg-ink/10">

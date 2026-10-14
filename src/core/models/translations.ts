@@ -101,6 +101,9 @@ const en = {
     linkedin: "LinkedIn",
     backToTop: "Back to top",
   },
+  splash: {
+    label: "Portfolio",
+  },
   language: {
     label: "Language",
   },
@@ -208,6 +211,9 @@ const pt: typeof en = {
     seeGithub: "GitHub",
     linkedin: "LinkedIn",
     backToTop: "Voltar ao topo",
+  },
+  splash: {
+    label: "Portfólio",
   },
   language: {
     label: "Idioma",
