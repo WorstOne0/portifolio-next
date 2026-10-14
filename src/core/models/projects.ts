@@ -7,6 +7,8 @@ export type Project = {
   // A screenshot of the live site in public/projects/, 1440×900; null draws a route map in the accent instead
   image: string | null;
   accent: string;
+  // Drawn full width, the screenshot alternating sides; the rest share a two-column grid
+  isFeatured: boolean;
   tech: string[];
   code: { label: string; href: string }[];
   description: Record<Lang, string>;
@@ -18,6 +20,7 @@ export const PROJECTS: Project[] = [
     site: "https://pedroluisimoveis.com.br",
     image: "/projects/pedro_luis.webp",
     accent: "#3b82f6",
+    isFeatured: true,
     tech: ["Node.js", "Express", "MongoDB", "React", "Next.js", "Google Maps", "Tailwind", "ShadCN"],
     code: [
       { label: "Front-end", href: "https://github.com/WorstOne0/pedro-luis-imoveis-frontend" },
@@ -30,10 +33,24 @@ export const PROJECTS: Project[] = [
     },
   },
   {
+    name: "Kuuhaku",
+    site: "https://kuuhaku.dev",
+    image: "/projects/kuuhaku.webp",
+    accent: "#0b5ecd",
+    isFeatured: true,
+    tech: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "SWR", "Node.js", "Express", "MongoDB", "ast-grep", "Docker"],
+    code: [],
+    description: {
+      en: "Living architecture documentation for teams with many repositories. Kuuhaku scans the repos, finds how they talk to each other — REST calls, queues, sockets and shared databases — and keeps the result as a site: a map of every connection with its evidence, a page per repo, and a check on every pull request that names the callers it breaks.",
+      pt: "Documentação de arquitetura viva para times com muitos repositórios. O Kuuhaku escaneia os repositórios, descobre como eles conversam entre si — chamadas REST, filas, sockets e bancos compartilhados — e mantém o resultado como um site: um mapa de cada conexão com sua evidência, uma página por repositório e uma verificação em cada pull request que aponta quem chama o que ele quebra.",
+    },
+  },
+  {
     name: "Wikidados",
     site: "https://wikidados.com.br",
     image: null,
     accent: "#10b981",
+    isFeatured: false,
     tech: ["Node.js", "Express", "RabbitMQ", "TCP", "Socket.IO", "MongoDB", "Vue.js", "Quasar", "Google Maps"],
     code: [],
     description: {
@@ -46,6 +63,7 @@ export const PROJECTS: Project[] = [
     site: "https://algorithm-visualization.disboard.dev",
     image: "/projects/algorithm_visualization.webp",
     accent: "#818cf8",
+    isFeatured: false,
     tech: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "Canvas 2D", "OpenStreetMap"],
     code: [{ label: "Front-end", href: "https://github.com/WorstOne0/algorithm-visualization-front" }],
     description: {
@@ -58,6 +76,7 @@ export const PROJECTS: Project[] = [
     site: "https://chess.disboard.dev",
     image: "/projects/chess.webp",
     accent: "#a78bfa",
+    isFeatured: false,
     tech: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "Stockfish", "WebSocket", "Node.js", "Express"],
     code: [
       { label: "Front-end", href: "https://github.com/WorstOne0/chess-front" },
@@ -73,6 +92,7 @@ export const PROJECTS: Project[] = [
     site: "https://minesweeper.disboard.dev",
     image: "/projects/minesweeper.webp",
     accent: "#f87171",
+    isFeatured: false,
     tech: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand"],
     code: [{ label: "Front-end", href: "https://github.com/WorstOne0/minesweeper-front" }],
     description: {

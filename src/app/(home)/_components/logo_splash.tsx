@@ -4,20 +4,35 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+
 export default function LogoSplash() {
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center gap-[1rem] bg-background">
-      <motion.div className="relative mb-[1.8rem] flex items-center justify-center" initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ duration: 0.8, delay: 1.6 }}>
-        <Image src="/logo/logo.png" alt="Logo" width={200} height={200} priority />
+    <motion.div exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className="fixed inset-0 z-30 flex flex-col items-center justify-center">
+      {/* Shares layoutId "logo" with the hero's orbit: when the splash leaves, the logo flies into it */}
+      <motion.div layoutId="logo" className="relative h-[16rem] w-[16rem]">
+        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, ease: EASE_OUT }} className="relative h-full w-full">
+          <Image src="/logo/logo.png" alt="Logo" fill sizes="160px" priority />
+        </motion.div>
       </motion.div>
 
-      <motion.span className="mt-[1rem] text-[2.2rem] font-light italic tracking-[0.15rem] text-ink/90" animate={{ opacity: 0 }} transition={{ duration: 1, delay: 1.2 }}>
+      <motion.span
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.35, ease: EASE_OUT }}
+        className="mt-[3.2rem] font-display text-[2.4rem] font-semibold tracking-[-0.02em] text-ink/92"
+      >
         Lucca Gabriel
       </motion.span>
 
-      <motion.span className="text-[1.4rem] font-bold tracking-[0.35rem] text-ink/75" animate={{ opacity: 0 }} transition={{ duration: 0.8, delay: 1.6 }}>
-        PORTIFOLIO
-      </motion.span>
-    </div>
+      <span className="mt-[1.8rem] h-[2px] w-[14rem] overflow-hidden rounded-full bg-ink/10">
+        <motion.span
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.4, delay: 0.3, ease: "easeInOut" }}
+          className="block h-full origin-left bg-linear-to-r from-highlight to-lavender"
+        />
+      </span>
+    </motion.div>
   );
 }

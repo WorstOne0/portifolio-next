@@ -3,6 +3,7 @@
 // Next
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 // Controllers
 import { useLanguageController } from "@/core/controllers";
 // Models
@@ -55,7 +56,12 @@ export default function NavBar({ scrollRef }: { scrollRef: React.RefObject<HTMLE
   const scrollTo = (id: Section) => scrollRef.current?.scrollTo({ top: document.getElementById(id)?.offsetTop, behavior: "smooth" });
 
   return (
-    <div className="relative z-20 h-screen w-[8.8rem] shrink-0 pt-[2.2rem] pb-[1.8rem] flex flex-col items-center border-r border-ink/6 bg-background/80 backdrop-blur-[14px]">
+    <motion.div
+      initial={{ x: "-100%" }}
+      animate={{ x: 0 }}
+      transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+      className="relative z-20 h-screen w-[8.8rem] shrink-0 pt-[2.2rem] pb-[1.8rem] flex flex-col items-center border-r border-ink/6 bg-background/80 backdrop-blur-[14px]"
+    >
       <div
         className="absolute top-0 -right-px w-[2px] rounded-b-[2px] bg-linear-to-b from-highlight to-accent shadow-glow transition-[height] duration-[120ms] ease-linear"
         style={{ height: `${progress * 100}%` }}
@@ -115,6 +121,6 @@ export default function NavBar({ scrollRef }: { scrollRef: React.RefObject<HTMLE
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

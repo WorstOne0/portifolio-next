@@ -10,12 +10,15 @@ is only what is specific to this app.
 
 - Do not add dependencies without saying so first.
 - Verify in a browser (`pnpm dev`, port 5001) at 1440×900 in both languages, with the console open.
-  The splash takes 2.8 s before anything else renders.
+  The splash takes 2 s; only the stars render under it.
 
 ## Rules that matter here
 
 - The page scrolls inside `<main>`, not the window: the nav's progress and active section, the hero's
-  buttons, the footer's back-to-top and the astronaut all read the `scrollRef` the page passes them.
+  buttons, the footer's back-to-top, the astronaut and the stars' parallax all read the `scrollRef` the
+  page passes them.
+- The splash's logo and the hero's orbit core share `layoutId="logo"`: when the splash leaves, the logo
+  flies into the orbit.
 - Every string is in `core/models/translations.ts`, `en` first and `pt: typeof en`, so a key missing
   in one language fails the type check. A project's text lives with it in `core/models/projects.ts`.
 - `ink` is the white everything is drawn in, nearly always with an alpha (`text-ink/60`). The brand

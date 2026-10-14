@@ -33,7 +33,8 @@ export default function Projects() {
   const lang = useLanguageController((state) => state.lang);
 
   const t = TRANSLATIONS[lang];
-  const [featured, ...others] = PROJECTS;
+  const featured = PROJECTS.filter((project) => project.isFeatured);
+  const others = PROJECTS.filter((project) => !project.isFeatured);
 
   const buildMap = (project: Project) => (
     <div className="relative aspect-[16/10] overflow-hidden bg-background">
@@ -131,18 +132,30 @@ export default function Projects() {
         <SectionHeader index={4} label={t.nav.projects} title={t.projects.title} subtitle={t.projects.subtitle} count={PROJECTS.length} />
 
         <div className="flex flex-col gap-[2rem]">
-          <motion.article
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65 }}
-            className={`grid grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] ${CARD}`}
-          >
-            <div className="p-[3.6rem] flex items-center" style={{ background: `radial-gradient(120% 120% at 0% 0%, ${featured.accent}3d, transparent 62%)` }}>
-              {buildWindow(featured)}
-            </div>
-            <div className="py-[4rem] pr-[4rem] pl-[3.6rem] flex flex-col justify-center">{buildBody(featured, 0, true)}</div>
-          </motion.article>
+          {featured.map((project, index) => {
+            const isFlipped = index % 2 === 1;
+
+            return (
+              <motion.article
+                key={project.name}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.65 }}
+                className={`grid ${isFlipped ? "grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]" : "grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]"} ${CARD}`}
+              >
+                <div
+                  className={`p-[3.6rem] flex items-center ${isFlipped ? "order-2" : ""}`}
+                  style={{ background: `radial-gradient(120% 120% at ${isFlipped ? "100%" : "0%"} 0%, ${project.accent}3d, transparent 62%)` }}
+                >
+                  {buildWindow(project)}
+                </div>
+                <div className={`py-[4rem] flex flex-col justify-center ${isFlipped ? "pr-[3.6rem] pl-[4rem]" : "pr-[4rem] pl-[3.6rem]"}`}>
+                  {buildBody(project, PROJECTS.indexOf(project), true)}
+                </div>
+              </motion.article>
+            );
+          })}
 
           <div className="grid grid-cols-2 gap-[2rem]">
             {others.map((project, index) => (
@@ -157,7 +170,7 @@ export default function Projects() {
                 <div className="h-[30rem] px-[2.8rem] pt-[2.8rem] overflow-hidden" style={{ background: `radial-gradient(120% 120% at 0% 0%, ${project.accent}3d, transparent 62%)` }}>
                   {buildWindow(project)}
                 </div>
-                <div className="flex-1 px-[3rem] pt-[2.8rem] pb-[3rem] flex flex-col border-t border-ink/7">{buildBody(project, index + 1, false)}</div>
+                <div className="flex-1 px-[3rem] pt-[2.8rem] pb-[3rem] flex flex-col border-t border-ink/7">{buildBody(project, PROJECTS.indexOf(project), false)}</div>
               </motion.article>
             ))}
           </div>

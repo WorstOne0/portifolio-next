@@ -17,7 +17,7 @@
 
 ## 📸 Preview
 
-The portfolio opens with a 2.8-second animated logo screen, then transitions to the main layout: a fixed navigation bar, an animated starfield background, and a floating astronaut. Sections scroll vertically inside a single container.
+The portfolio opens on a 2-second logo screen while the starfield opens out from the centre; the logo then flies into the hero's orbit and the page comes in around it: a fixed navigation bar, the starfield with depth parallax on scroll, and a floating astronaut. Sections scroll vertically inside a single container.
 
 ---
 
@@ -105,7 +105,7 @@ Open [http://localhost:5001](http://localhost:5001) in your browser.
 
 ## 🗂 Adding a project
 
-A project is one row in `src/core/models/projects.ts`: its name, site, accent colour, stack, repositories and a description in both languages. For the screenshot, save the live site at 1440×900 as WebP in `public/projects/` and point `image` at it; without one, the card draws a route map in the project's accent colour instead. The first project in the list is the featured one, drawn full width.
+A project is one row in `src/core/models/projects.ts`: its name, site, accent colour, stack, repositories and a description in both languages. For the screenshot, save the live site at 1440×900 as WebP in `public/projects/` and point `image` at it; without one, the card draws a route map in the project's accent colour instead. `isFeatured` draws a project full width, its screenshot alternating sides; the rest share a two-column grid.
 
 ---
 

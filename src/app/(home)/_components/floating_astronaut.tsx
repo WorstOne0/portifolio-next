@@ -10,7 +10,14 @@ export default function FloatingAstronaut({ scrollRef }: { scrollRef: React.RefO
   const y = useTransform(scrollYProgress, [0, 1], ["10vh", "75vh"]);
 
   return (
-    <motion.div aria-hidden="true" style={{ y }} className="pointer-events-none fixed top-0 right-[2.4rem] z-[15] flex flex-col items-center select-none">
+    <motion.div
+      aria-hidden="true"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.2, delay: 1.1 }}
+      style={{ y }}
+      className="pointer-events-none fixed top-0 right-[2.4rem] z-[15] flex flex-col items-center select-none"
+    >
       <div className="h-[6rem] w-px bg-linear-to-b from-transparent to-ink/15" />
 
       <motion.div
