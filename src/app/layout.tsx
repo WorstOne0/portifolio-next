@@ -11,7 +11,7 @@ const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" });
 const DESCRIPTION = "Projetos, experiência e contato de Lucca Gabriel, desenvolvedor full-stack.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio.kuuhaku.dev"),
+  metadataBase: new URL("https://luccagabriel.dev"),
   title: "Lucca Gabriel | Portfolio",
   description: DESCRIPTION,
   icons: { icon: "/logo/logo.png" },

@@ -1,6 +1,6 @@
 # Lucca Gabriel — Portfolio
 
-> Personal portfolio website for Lucca Gabriel, Full-Stack Developer & Computer Engineer, at [portfolio.kuuhaku.dev](https://portfolio.kuuhaku.dev). Built with a space-themed aesthetic featuring animated backgrounds, smooth scroll sections, and bilingual (EN/PT) support.
+> Personal portfolio website for Lucca Gabriel, Full-Stack Developer & Computer Engineer, at [luccagabriel.dev](https://luccagabriel.dev). Built with a space-themed aesthetic featuring animated backgrounds, smooth scroll sections, and bilingual (EN/PT) support.
 
 ---
 
@@ -114,7 +114,7 @@ A project is one row in `src/core/models/projects.ts`: its name, site, accent co
 |---|---|
 | Google Fonts (Nunito) | Typography via `next/font/google` |
 | GitHub links | Project source code links (in `core/models/projects.ts`) |
-| External site links | Live project URLs (pedroluisimoveis.com.br, wikidados.com.br, chess.kuuhaku.dev, minesweeper.kuuhaku.dev) |
+| External site links | Live project URLs (pedroluisimoveis.com.br, wikidados.com.br, chess.disboard.dev, minesweeper.disboard.dev) |
 
 No backend or API routes — fully static frontend.
 
@@ -128,7 +128,7 @@ Docker, standalone output on port 5001:
 docker compose up -d --build
 ```
 
-The container joins the external `nginx-proxy` network as `portifolio`. On the VPS, Nginx Proxy Manager forwards `portfolio.kuuhaku.dev` to `portifolio:5001` — a route set up by hand in its UI; the `VIRTUAL_*` variables in `docker-compose.yml` are only read by jwilder/nginx-proxy.
+The container joins the external `nginx-proxy` network as `portifolio`. On the VPS, Nginx Proxy Manager forwards `luccagabriel.dev` to `portifolio:5001` — a route set up by hand in its UI; the `VIRTUAL_*` variables in `docker-compose.yml` are only read by jwilder/nginx-proxy.
 
 ---
 

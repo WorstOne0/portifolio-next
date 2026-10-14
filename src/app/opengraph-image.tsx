@@ -48,7 +48,7 @@ export default async function OpengraphImage() {
         ))}
 
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 680 }}>
-          <span style={{ fontSize: 30, color: "#a78bfa" }}>portfolio.kuuhaku.dev</span>
+          <span style={{ fontSize: 30, color: "#a78bfa" }}>luccagabriel.dev</span>
           <span style={{ fontSize: 92, fontWeight: 800, lineHeight: 1.05, marginTop: 18 }}>Lucca Gabriel</span>
           <span style={{ fontSize: 42, fontWeight: 600, marginTop: 36 }}>Desenvolvedor Full-Stack</span>
           <span style={{ fontSize: 28, color: "#8892a4", marginTop: 20 }}>Flutter, React, Next.js e Node.js</span>

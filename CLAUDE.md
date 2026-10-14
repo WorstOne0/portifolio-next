@@ -1,6 +1,6 @@
 # portifolio_frontend
 
-Lucca's portfolio at portfolio.kuuhaku.dev. Next.js 16 (App Router, Turbopack), React 19, Tailwind 4,
+Lucca's portfolio at luccagabriel.dev. Next.js 16 (App Router, Turbopack), React 19, Tailwind 4,
 Zustand, Framer Motion. General code style lives in `../../general/code_style/` (`next.md`); this file
 is only what is specific to this app.
 

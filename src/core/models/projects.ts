@@ -43,7 +43,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "Algorithm Visualizer",
-    site: "https://algorithm-visualization.kuuhaku.dev",
+    site: "https://algorithm-visualization.disboard.dev",
     image: "/projects/algorithm_visualization.webp",
     accent: "#818cf8",
     tech: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "Canvas 2D", "OpenStreetMap"],
@@ -55,7 +55,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "Chess",
-    site: "https://chess.kuuhaku.dev",
+    site: "https://chess.disboard.dev",
     image: "/projects/chess.webp",
     accent: "#a78bfa",
     tech: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "Stockfish", "WebSocket", "Node.js", "Express"],
@@ -70,7 +70,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "Minesweeper",
-    site: "https://minesweeper.kuuhaku.dev",
+    site: "https://minesweeper.disboard.dev",
     image: "/projects/minesweeper.webp",
     accent: "#f87171",
     tech: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand"],
